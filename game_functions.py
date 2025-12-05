@@ -16,7 +16,7 @@ class Settings(object):
         # alien setting
         self.fleet_direction = 1
         # ships
-        self.ships_limit = 3
+        self.ships_limit = 1
 
         self.speedup_scale = 1.1
         self.score_scale = 1.5
@@ -38,6 +38,7 @@ class GameStats(object):
     def reset_stats(self):
         self.ships_left = self.ai_setting.ships_limit
         self.score = 0
+        self.result = ''
         self.last_score_time = pygame.time.get_ticks()
         self.start_time = 0
 
@@ -275,19 +276,12 @@ def ship_hit(ai_setting, stats, screen, aliens, ship, aline_bullets, sb):
         create_fleet(ai_setting, screen, aliens, ship)
         ship.center_ship()
         sleep(0.5)
+    elif stats.result == 'win':
+        stats.game_active = False
+        pygame.mouse.set_visible(True)
     else:
         stats.game_active = False
         pygame.mouse.set_visible(True)
-
-
-
-def check_aliens_bottom(ai_setting, stats, screen, aliens, ship, bullets, sb):
-    screen_rect = screen.get_rect()
-    for alien in aliens.sprites():
-        if alien.rect.bottom >= screen_rect.bottom:
-            ship_hit(ai_setting, stats, screen, aliens, ship, bullets, sb)
-            break
-
 
 def update_score(stats, sb):
     # Check if 2 seconds have passed since the last score update
@@ -314,4 +308,4 @@ def update_aliens(ai_setting, stats, screen, aliens, ship, sb, alien_bullets):
     update_score(stats, sb)
 
     # Check if the ship collides with any alien bullets
-    check_aliens_bottom(ai_setting, stats, screen, aliens, ship, alien_bullets, sb)
+    # check_aliens_bottom(ai_setting, stats, screen, aliens, ship, alien_bullets, sb)
