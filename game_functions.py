@@ -16,7 +16,7 @@ class Settings(object):
         # alien setting
         self.fleet_direction = 1
         # ships
-        self.ships_limit = 1
+        self.ships_limit = 3
 
         self.speedup_scale = 1.1
         self.score_scale = 1.5
@@ -309,3 +309,4 @@ def update_aliens(ai_setting, stats, screen, aliens, ship, sb, alien_bullets):
 
     # Check if the ship collides with any alien bullets
     # check_aliens_bottom(ai_setting, stats, screen, aliens, ship, alien_bullets, sb)
+
