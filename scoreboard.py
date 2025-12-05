@@ -52,6 +52,7 @@ class Scoreboard(object):
       # 500 max score if player holds on 3 mins
       if elapsed_seconds > 180:
           self.stats.score = 500
+          self.stats.result = 'win'
 
       elapsed_time_str = f"Time : {minutes:02}:{seconds:02}"
       self.font = pygame.font.Font(None, 34)  # default font, size 40
