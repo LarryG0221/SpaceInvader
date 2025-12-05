@@ -41,11 +41,19 @@ def run_game():
     screen.fill((0, 0, 0))
     while True:
         screen.blit(background, (0, 0))
-
         gf.check_events(ai_setting, screen, ship, alien_bullets, aliens, stats, play_button, sb)
         if stats.game_active:
             ship.update()
             gf.update_aliens(ai_setting, stats, screen, aliens, ship, sb, alien_bullets)
+            if stats.result == 'win':
+                win_font = pygame.font.Font(None, 100)
+                win_text = win_font.render("YOU WIN", True, (0, 255, 0))
+
+                # Center horizontally and near the top
+                x = ai_setting.screen_width // 2 - win_text.get_width() // 2
+                y = 400  # Adjust y-position to show it above the middle
+                screen.blit(win_text, (x, y))
+
         else:
             if stats.ships_left == 0:
                 game_over_font = pygame.font.Font(None, 100)
@@ -56,6 +64,7 @@ def run_game():
                 # middle of screen
                 y = 400
                 screen.blit(game_over_text, (x, y))
+
         gf.update_screen(screen, ship, aliens, alien_bullets, stats, play_button, sb )
 
         # save score in a text file
@@ -64,3 +73,5 @@ def run_game():
         pygame.display.update()
 
 run_game()
+
+
